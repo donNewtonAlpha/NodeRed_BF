@@ -8,8 +8,10 @@
             key: {value:""},
             secret:{value:""},
             speech:{value:false},
+            tts:{value:false},
             inapp:{value:false},
             sms:{value:false},
+            mms:{value:false},
             billing: {value:false},
             advert: {value:false}
 
@@ -32,29 +34,38 @@
         <input type="text" id="node-input-key" placeholder="key">
     </div>
     <div class="form-row">
-       <label for="node-input-secret"><i class="icon-tag"></i>Secret</label>
+       <label for="node-input-secret"><i class="icon-tag"></i> Secret</label>
        <input type="text" id="node-input-secret" placeholder="secret">
     </div>
     <hr>
     APIs:<br><br>
     <div class="form-row">
-       <label for="node-input-speech"><i class="icon-tag"></i>Speech</label>
+       <label for="node-input-speech"><i class="icon-tag"></i> Speech</label>
        <input type="checkbox" id="node-input-speech" placeholder="speech">
     </div>
     <div class="form-row">
-       <label for="node-input-inapp"><i class="icon-tag"></i>IN_APP</label>
+       <label for="node-input-tts"><i class="icon-tag"></i> Text To Speech</label>
+       <input type="checkbox" id="node-input-tts" placeholder="tts">
+    </div>
+
+    <div class="form-row">
+       <label for="node-input-inapp"><i class="icon-tag"></i> IN_APP</label>
        <input type="checkbox" id="node-input-inapp" placeholder="inapp">
     </div>
     <div class="form-row">
-       <label for="node-input-sms"><i class="icon-tag"></i>SMS</label>
+       <label for="node-input-sms"><i class="icon-tag"></i> SMS</label>
        <input type="checkbox" id="node-input-sms" placeholder="sms">
     </div>
     <div class="form-row">
-       <label for="node-input-billing"><i class="icon-tag"></i>Billing</label>
+       <label for="node-input-mms"><i class="icon-tag"></i> MMS</label>
+       <input type="checkbox" id="node-input-mms" placeholder="mms">
+    </div>
+    <div class="form-row">
+       <label for="node-input-billing"><i class="icon-tag"></i> Billing</label>
        <input type="checkbox" id="node-input-billing" placeholder="billing">
     </div>
     <div class="form-row">
-       <label for="node-input-advert"><i class="icon-tag"></i>Advertising</label>
+       <label for="node-input-advert"><i class="icon-tag"></i> Advertising</label>
        <input type="checkbox" id="node-input-advert" placeholder="advert">
     </div>
     </script>

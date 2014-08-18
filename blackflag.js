@@ -1,13 +1,20 @@
 module.exports = function(RED) {
    var http=require('https');
 
+   var scope="";
    function connect(node){ 
-      var scope="";
       var level=0;
       var chunk;
+      scope="";
       
       if(node.speech){
-         scope+="SPEECH,TTS";
+         scope+="SPEECH";
+         level++;
+      }
+      if(node.tts){
+         if(level>0)
+            scope+=',';
+         scope+="TTS";
          level++;
       }
       if(node.advert){
@@ -24,7 +31,12 @@ module.exports = function(RED) {
       if(node.sms){
          if(level>0)
             scope+=",";
-         scope+="SMS,MMS";
+         scope+="SMS";
+      }
+      if(node.mms){
+         if(level>0)
+            scope+=",";
+         scope+="MMS";
       }
       if(node.billing){
          if(level>0)
@@ -45,6 +57,13 @@ module.exports = function(RED) {
             res.on('data',function(chunk){
                console.log("Response: "+chunk);
                var msg=new Object();
+               var response=JSON.parse(chunk);
+               console.log(response);
+               if(response.error){
+                  msg.payload="ERROR:"+response.error +" Scope: "+scope;
+                  node.send(msg);
+                  return;
+               }
                
                var token=JSON.parse(chunk).access_token;
                var token_name=node.name;
@@ -72,8 +91,10 @@ module.exports = function(RED) {
         this.secret=config.secret;
         this.advert  = config.advert;
         this.speech  = config.speech;
+        this.tts  = config.tts;
         this.inapp   = config.inapp;
         this.sms     = config.sms;
+        this.mms     = config.mms;
         this.billing = config.billing;
         setImmediate(connect,node);
         this.on('input', function(msg) {
