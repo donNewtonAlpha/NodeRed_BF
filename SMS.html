@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ATT SMS',{
+        category: 'att-sms-function',
+        color: '#727272',
+        defaults: {
+
+            name: {value:""},
+            blackflag:{value:""},
+            numbers: {value:""},
+            message:{value:""},
+        },
+        outputs:1,
+        inputs:1,
+        icon: "sms.png",
+        label: function() {
+            return this.name||"SMS";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ATT SMS">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+       <label for="node-input-blackflag"><i class="icon-tag"></i> BlackFlag</label>
+       <input type="text" id="node-input-blackflag">
+   </div>
+    <div class="form-row">
+        <label for="node-input-numbers"><i class="icon-tag"></i> Numbers</label>
+        <input type="text" id="node-input-numbers" placeholder="8885551212,8665551212">
+    </div>
+    <div class="form-row">
+       <label for="node-input-message"><i class="icon-tag"></i> Message</label>
+       <input type="text" id="node-input-message" placeholder="Good Morning!">
+    </div>
+    </script>
+
+<script type="text/x-red" data-help-name="ATT SMS">
+   <p>Provides a node which sends a text message to a list of phone numbers.</p>
+   <p>Inputs:<p>
+   <p>
+      <ul>
+         <li><code>name</code> is an identifier for convienience
+         <li><code>blackflag</code> is the key in the Global cache for the access token to be used.  See <code>BlackFlag</code> node.
+         <hr>
+         The following can be set in the settings screen or passed in as a field of the <code>msg.payload</code> object e.g. <code>msg.payload.numbers="9995551212,3335551212"</code>
+         <li><code>numbers</code> is the list of numbers to which the message is to be sent.  The numbers can be formatted either in NANP <code>4045551212</code> or E.164 <code>+14045551212</code> format.
+         <li><code>message</code> is the text to be sent
+      </ul>
+   <p>Output</p>
+   
+   The output is a JSON object with the message id and the resource reference in the following format
+   <hr>
+   <pre>
+   { "Id": "SMSa9b1fd59a7fe0ba8", 
+     "ResourceReference": { 
+                            "ResourceUrl":"https://api.att.com/rest/sms/2/messaging/outbox/SMSa9b1fd59a7fe0ba8" 
+                          } 
+   }
+</pre>
+</script>

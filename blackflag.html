@@ -1,0 +1,72 @@
+<script type="text/javascript">
+    RED.nodes.registerType('BlackFlag',{
+        category: 'att-input',
+        color: '#727272',
+        defaults: {
+
+            name: {value:""},
+            key: {value:""},
+            secret:{value:""},
+            speech:{value:false},
+            inapp:{value:false},
+            sms:{value:false},
+            billing: {value:false},
+            advert: {value:false}
+
+        },
+        outputs:1,
+        icon: "key.png",
+        label: function() {
+            return this.name||"BlackFlag";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="BlackFlag">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-key"><i class="icon-tag"></i> Key</label>
+        <input type="text" id="node-input-key" placeholder="key">
+    </div>
+    <div class="form-row">
+       <label for="node-input-secret"><i class="icon-tag"></i>Secret</label>
+       <input type="text" id="node-input-secret" placeholder="secret">
+    </div>
+    <hr>
+    APIs:<br><br>
+    <div class="form-row">
+       <label for="node-input-speech"><i class="icon-tag"></i>Speech</label>
+       <input type="checkbox" id="node-input-speech" placeholder="speech">
+    </div>
+    <div class="form-row">
+       <label for="node-input-inapp"><i class="icon-tag"></i>IN_APP</label>
+       <input type="checkbox" id="node-input-inapp" placeholder="inapp">
+    </div>
+    <div class="form-row">
+       <label for="node-input-sms"><i class="icon-tag"></i>SMS</label>
+       <input type="checkbox" id="node-input-sms" placeholder="sms">
+    </div>
+    <div class="form-row">
+       <label for="node-input-billing"><i class="icon-tag"></i>Billing</label>
+       <input type="checkbox" id="node-input-billing" placeholder="billing">
+    </div>
+    <div class="form-row">
+       <label for="node-input-advert"><i class="icon-tag"></i>Advertising</label>
+       <input type="checkbox" id="node-input-advert" placeholder="advert">
+    </div>
+    </script>
+
+<script type="text/x-red" data-help-name="BlackFlag">
+    <p>Provides a  node which handles AT&T Blackflag OAuth login and API registration</p>
+    <p>
+       <ul>
+          <li><code>name</code> both identifes the node and is also the key in the global cache where the token is stored.  This corresponds to the <code>blackflag</code> entry in the API nodes.
+          <li><code>key</code> is the key from the app registered in <code>http://developer.att.com</code> 
+          <li><code>secret</code> is the secret from the app registered in <code>http://developer.att.com</code> 
+     </ul>
+     <p>The output should be sent to a <code>debug</code> node to validate sucessful registration</p>
+
+</script>

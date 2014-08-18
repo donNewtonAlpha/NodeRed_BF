@@ -1,0 +1,182 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ATT ADS',{
+        category: 'att-advertising-function',
+        color: '#727272',
+        defaults: {
+
+            name: {value:""},
+            blackflag: {value:""},
+            Category:  {value:""},
+            AgeGroup: {value:""},
+            Gender:    {value:""},
+            ZipCode:  {value:"",validate:RED.validators.number() },
+            City:      {value:""},
+            AreaCode: {value:"",validate:RED.validators.number() },
+            Country:   {value:""},
+            Latitude:  {value:""},
+            Longitude: {value:""},
+            Keywords:  {value:""},
+
+        },
+        outputs:1,
+        inputs:1,
+        icon: "ad.png",
+        label: function() {
+            return this.name||"ATT ADS";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ATT ADS">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-blackflag"><i class="icon-tag"></i> BlackFlag </label>
+        <input type="text" id="node-input-blackflag">
+    </div>
+    <div class="form-row">
+        <label for="node-input-Category"><i class="icon-tag"></i> Category</label>
+        <select id="node-input-Category" placeholder="Category">
+           <option selected value="auto">auto</option>
+           <option value="business">business</option>
+           <option value="finance">finance</option>
+           <option value="chat">chat</option>
+           <option value="community">community</option>
+           <option value="social">social</option>
+           <option value="personals">personals</option>
+           <option value="communications">communication</option>
+           <option value="technology">technology</option>
+           <option value="games">games</option>
+           <option value="health">health</option>
+           <option value="medical">medical</option>
+           <option value="maps">maps</option>
+           <option value="local">local</option>
+           <option value="entertainment">entertainment</option>
+           <option value="movies">movies</option>
+           <option value="tv">tv</option>
+           <option value="music">music</option>
+           <option value="photos">photos</option>
+           <option value="video">video</option>
+           <option value="news">news</option>
+           <option value="weather">weather</option>
+           <option value="shopping">shopping</option>
+           <option value="sports">sports</option>
+           <option value="tools">tools</option>
+           <option value="travel">travel</option>
+           <option value="other">other</option>
+        </select>
+    </div>
+    <div class="form-row">
+       <label for="node-input-AgeGroup"><i class="icon-tag"></i> Age Group</label>
+       <select id="node-input-AgeGroup" placeholder="AgeGroup">
+          <option value=""><option>
+          <option value="14-25">14-25</option>
+          <option value="26-35">26-35</option>
+          <option value="36-55">36-55</option>
+          <option value="56-100">56-100</option>
+       </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-Genger"><i class="icon-tag"></i> Gender</label>
+        <select id="node-input-Gender" placeholder="Gender">
+           <option value=""></option>
+           <option value="M">M</option>
+           <option value="F">F</option>
+        </select>
+    </div>
+         
+     <div class="form-row">
+        <label for="node-input-ZipCode"><i class="icon-tag"></i> Zip Code</label>
+        <input type="text" id="node-input-ZipCode" ></label>
+    </div>
+    <div class="form-row">
+        <label for="node-input-AreaCode"><i class="icon-tag"></i> Area Code</label>
+        <input type="text" id="node-input-AreaCode" >
+    </div>
+    <div class="form-row">
+        <label for="node-input-City"><i class="icon-tag"></i> City</label>
+        <input type="text" id="node-input-City" >
+    </div>
+    <div class="form-row">
+        <label for="node-input-Country"><i class="icon-tag"></i> Country</label>
+        <input type="text" id="node-input-Country" >
+    </div>
+    <div class="form-row">
+        <label for="node-input-Latitude"><i class="icon-tag"></i>Latitude</label>
+
+        <input type="text" id="node-input-Latitude" >     
+    </div>
+    <div class="form-row">
+        <label for="node-input-Longitude"><i class="icon-tag"></i>Longitude</label>
+        <input type="text" id="node-input-Longitude" > 
+    </div>
+    <div class="form-row">
+        <label for="node-input-Keywords"><i class="icon-tag"></i> Keywords</label>
+        <input type="text" id="node-input-Keywords">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ATT ADS">
+    <p>Provides a node which retrieve an advertisement suitable for use in a mobile phone app</p>
+    <p>Inputs<p>
+    <p>
+      <ul>
+         <li><code>name</code> is an identifier for convienience
+         <li><code>blackflag</code> is the key in the Global cache for the access token to be used.  See <code>BlackFlag</code> node.
+      </ul>
+         <hr>
+      The following properties can be set in the config screen or overriden by being passed in the msg object.  e.g. <code>msg.ZipCode="30542";</code><br><br>
+      <ul>
+         <li><code>Category</code>is the only mandatory field and must be one of the following values:
+              <p>
+              <code>auto</code>, 
+              <code>business</code>,
+              <code>finance</code>,
+              <code>chat</code>,
+              <code>community</code>,
+              <code>social</code>,
+              <code>personals</code>,
+              <code>communications</code>,
+              <code>technology</code>,
+              <code>games</code>,
+              <code>health</code>,
+              <code>medical</code>,
+              <code>maps</code>,
+              <code>local</code>,
+              <code>entertainment</code>,
+              <code>movies</code>,
+              <code>tv</code>,
+              <code>music</code>,
+              <code>photos</code>,
+              <code>video</code>,
+              <code>news</code>,
+              <code>weather</code>,
+              <code>shopping</code>,
+              <code>sports</code>,
+              <code>tools</code>,
+              <code>travel</code>,
+              <code>other</code>
+              </p>
+         <li><code>AgeGroup</code> if set indicates the target audience for the ad.  Acceptable values:
+             <p>
+                <code>14-25</code>,<code>26-35</code>,<code>36-55</code>,<code>56-100</code>
+             </p>
+         <li><code>Gender</code> if set indicates the target gender for the ad.  Acceptable values <code>M</code> for male and <code>F</code> for Female.
+         <li><code>Keywords</code> can be a list of comma seperated words to further customize the ad. e.g <code>bowling,softball,formula1</code>
+         <hr>
+         The following indicate the location of the person viewing the ad.<br><br>
+         <li><code>ZipCode</code> should be a 5 digit number
+         <li><code>AreaCode</code> should be a 3 digit number.
+         <li><code>City</code> should be in the format of <code>Atlanta, GA</code>
+         <li><code>Latitude</code> signed floating point number e.g. <code>47.620019</code>
+         <li><code>Longitude</code> signed floating point number e.g. <code>-122.349156</code>
+         <hr>
+         <p>The output in the <code>msg.payload</code> and is an html snippet suitable for direct embededing in a web page.  e.g. <code>
+            &lt; a href="https://att.ssl.mocean.mobi/10/redir/f4c01e81-2235-11e4-930c-ecf4bbbefb02/0/250449"&gt;
+                    &lt; img src="http://bank-01.ads.mp.mydas.mobi/getImage.php5?apid=91649&mode=live&acid=2288145&auid=mmid_8ae441466855cadead71288981fdd4e07c_0147b644188a&osid=1&urid=7hpy6-JFOA54bvTJcS1IWWgR&ri=1&mmid=7772&orut=1407857586&mtpid=129086" alt="Advertisement" width="320" height="50"/&gt;
+                 &lt; /a&gt;
+        </code>
+
+</script>

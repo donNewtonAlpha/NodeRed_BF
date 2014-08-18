@@ -1,0 +1,132 @@
+<script type="text/javascript">
+    RED.nodes.registerType('S TEXT',{
+        category: 'att_speech-function',
+        color: '#727272',
+        defaults: {
+            name: {value:""},
+            blackflag:{value:""},
+            filename:{value:""},
+            format:{value:"x-wav"},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "stt.png",
+        label: function() {
+            return this.name||"Speech To Text";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="S TEXT">
+   <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+   </div>
+   <div class="form-row">
+      <label for="node-input-blackflag"><i class="icon-tag"></i> Blackflag</label>
+      <input type="text" id="node-input-blackflag">
+   </div>
+   <div class="form-row">
+      <label for="node-input-filename"><i class="icon-tag"></i> Filename</label>
+      <input type="text" id="node-input-filename" placeholder="filename.wav">
+   </div>
+   <div class="form-row">
+      <label for="node-input-format"><i class="icon-tag"></i> Format</label>
+      <select type="text" id="node-input-format">
+         <option>amr</option>
+         <option>amr-wb</option>
+         <option>wav</option>
+         <option selected >x-wav</option>
+         <option>x-speex</option>
+         <option>x-speex-with-header-byte;rate=16000</option>
+         <option>x-speex-with-header-byte;rate=8000</option>
+         <option>raw;coding=linear;rate=16000;byteorder=LE</option>
+         <option>raw;coding=linear;rate=16000;byteorder=BE</option>
+         <option>raw;coding=linear;rate=8000;byteorder=LE</option>
+         <option>raw;coding=linear;rate=8000;byteorder=BE</option>
+         <option>raw;coding=ulaw;rate=16000</option>
+         <option>raw;coding=ulaw;rate=8000</option>
+      </select>
+   </div>
+</script>
+
+<script type="text/x-red" data-help-name="S TEXT">
+   <p>Provides a node which takes an audio file reference and returns recognition of the text.</p>
+   <p>Inputs:<p>
+   <p>
+      <ul>
+         <li><code>name</code> is an identifier for convienience
+         <li><code>blackflag</code> is the key in the Global cache for the access token to be used.  See <code>BlackFlag</code> node.
+         <hr>
+         The following can be set in the settings screen or passed in as a field of the <code>msg.payload</code> object e.g. <code>msg.payload.format="x-wav"</code>
+         <li><code>filename</code> is the local filename of the audio file to be submitted for recogntion.
+         <li><code>format</code> is the encoding format of the file to be submitted.
+            <p>Acceptable Encodings are:</p>
+            <ul>
+              <li><code>AMR (narrowband), 12.2 kbit/s, 8 kHz sampling</code>
+              <li><code>AMR-WB (wideband), 12.65 kbit/s, 16khz sampling</code>
+              <li><code>6-bit PCM WAV, linear coding, single channel, 8 kHz sampling</code>
+              <li><code>16-bit PCM WAV, ulaw coding, single channel, 8 kHz sampling</code>
+              <li><code>16-bit PCM WAV, linear coding, single channel, 16 kHz sampling</code>
+              <li><code>16-bit PCM WAV, ulaw coding, single channel, 16 kHz sampling</code>
+              <li><code>OGG, speex encoding, 8kHz sampling</code>
+              <li><code>OGG, speex encoding, 16kHz sampling</code>
+              <li><code>Raw, linear coding, little-endian byte order, 8kHz sampling</code>
+              <li><code>Raw, linear coding, big-endian byte order, 8kHz sampling</code>
+              <li><code>Raw, ulaw coding, little-endian byte order, 8kHz sampling</code>
+              <li><code>Raw, ulaw coding, big-endian byte order, 8kHz sampling</code>
+              <li><code>Raw, linear coding, little-endian byte order, 16kHz sampling</code>
+              <li><code>Raw, linear coding, big-endian byte order, 16kHz sampling</code>
+              <li><code>Raw, ulaw coding, little-endian byte order, 16kHz sampling</code>
+              <li><code>Raw, ulaw coding, big-endian byte order, 16kHz sampling</code>
+      </ul>
+      <p>Corresponding to following values for the format field</p>
+         <ul>
+            <li><code>amr</code>
+            <li><code>amr-wb</code>
+            <li><code>wav</code>
+            <li><code>x-wav</code>
+            <li><code>x-speex</code>
+            <li><code>x-speex-with-header-byte;rate=16000</code>
+            <li><code>x-speex-with-header-byte;rate=8000</code>
+            <li><code>raw;coding=linear;rate=16000;byteorder=LE</code>
+            <li><code>raw;coding=linear;rate=16000;byteorder=BE</code>
+            <li><code>raw;coding=linear;rate=8000;byteorder=LE</code>
+            <li><code>raw;coding=linear;rate=8000;byteorder=BE</code>
+            <li><code>raw;coding=ulaw;rate=16000</code>
+            <li><code>raw;coding=ulaw;rate=8000</code>
+         </ul>
+   </ul>
+   <p>Output is a JSON object which Identifies the recoginized text with confidence ratings in the form of:<br>
+   <pre>
+      {
+    "Recognition": {
+        "Status": "Ok",
+        "ResponseId": "3125ae74122628f44d265c231f8fc926",
+        "NBest": [
+            {
+                "Hypothesis": "bookstores in glendale california",
+                "LanguageId": "en-us",
+                "Confidence": 0.9,
+                "Grade": "accept",
+                "ResultText": "bookstores in Glendale, CA",
+                "Words": [
+                    "bookstores",
+                    "in",
+                    "glendale",
+                    "california"
+                ],
+                "WordScores": [
+                    0.92,
+                    0.73,
+                    0.81,
+                    0.96
+                ]
+            }
+        ]
+    }
+}
+   </pre>
+     
+</script>
+

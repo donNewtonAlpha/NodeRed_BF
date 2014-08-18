@@ -1,0 +1,55 @@
+<script type="text/javascript">
+   RED.nodes.registerType('T SPEECH',{
+      category: 'att_speech-function',
+      color: '#727272',
+      defaults:{
+         name:{value:""},
+         blackflag:{value:""},
+         text:{value:""},
+         tmp_dir:{value:"/var/www/"},
+      },
+      inputs:1,
+      outputs:1,
+      icon:"tts.png",
+      label: function(){
+        return this.name||"Text To Speech"
+      }
+   });
+</script>
+
+<script type="text/x-red" data-template-name="T SPEECH"> 
+   <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+   </div>
+   <div class="form-row">
+      <label for="node-input-blackflag"><i class="icon-tag"></i> Blackflag</label>
+      <input type="text" id="node-input-blackflag">
+   </div>
+   <div class="form-row">
+      <label for="node-input-text"><i class="icon-tag"></i> Text</label>
+      <input type="text" id="node-input-text">
+   </div>
+   <div class="form-row">
+      <label for="node-input-tmp_dir"><i class="icon-tag"></i> Tmp Directory</label>
+      <input type="text" id="node-input-tmp_dir">
+   </div>
+</script>
+
+<script type="text/x-red" data-help-name="T SPEECH">
+   <p>Provides a node which takes in texts, converts it to an audio file and returns a filename of the audio file.</p>
+   <p>Inputs:<p>
+   <p>
+      <ul>
+         <li><code>name</code> is an identifier for convienience
+         <li><code>blackflag</code> is the key in the Global cache for the access token to be used.  See <code>BlackFlag</code> node.
+         <hr>
+         The following can be set in the settings screen or passed in as a field of the <code>msg.payload</code> object e.g. <code>msg.payload.text="This is pretty easy to use"</code>
+         <li><code>text</code> is the text to be converted
+         <li><code>tmp_dir</code> is the directory where the audio file will be written.
+      </ul>
+   <p>Output:</p>
+   <code>msg.payload.audio_file</code> will contain the name of the audio file written in the <code>tmp_dir</code>
+
+
+</script>
