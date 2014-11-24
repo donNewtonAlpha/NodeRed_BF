@@ -1,6 +1,5 @@
 module.exports = function(RED) {
-   var http=require('https');
-
+   var request=require("request");
    var scope="";
    function connect(node){ 
       var level=0;
@@ -43,29 +42,21 @@ module.exports = function(RED) {
             scope+=',';
          scope+="PAYMENT";
       }
+      var headers={
+         'User-Agent':'AT&T Breeze Agent',
+         'Content-Type':'application/x-www-form-urlencoded'
+      }
       var options = {
-        hostname: 'api.att.com',
-        port: 443,
-        path: '/oauth/token',
-        method: 'POST'
+         url: 'https://api.att.com/oauth/v4/token',
+         method: 'POST',
+         headers: headers,
+         form: {'client_id': node.key, 'client_secret': node.secret,'scope':scope,'grant_type':'client_credentials'}
+
       };
-     
-      var body="client_id="+node.key+"&client_secret="+node.secret+"&scope="+scope+"&grant_type=client_credentials";
-      console.log("BODY"+body);
-      var req=http.request(options,function(res){
-            res.setEncoding('utf8');
-            res.on('data',function(chunk){
-               console.log("Response: "+chunk);
-               var msg=new Object();
-               var response=JSON.parse(chunk);
-               console.log(response);
-               if(response.error){
-                  msg.payload="ERROR:"+response.error +" Scope: "+scope;
-                  node.send(msg);
-                  return;
-               }
-               
-               var token=JSON.parse(chunk).access_token;
+      request(options,function(error,response,body){
+            var msg=new Object();
+            if(!error&&response.statusCode==200){
+               var token=JSON.parse(body).access_token;
                var token_name=node.name;
                
                node.context.global[token_name]=token;
@@ -73,13 +64,13 @@ module.exports = function(RED) {
 
                node.status({fill:"green",shape:"dot",text:"connected"});
                node.send(msg);
-            });
+            }else{
+               msg.payload="ERROR:"+response.error +" Scope: "+scope;
+               node.send(msg);
+               return;
+            }
       });
-      req.on('error',function(e){
-            console.log('problem with request: ' +e.message);
-      });
-      req.write(body);
-      req.end();
+     
    }
     function BlackFlagNode(config) {
         this.context = {global:RED.settings.functionGlobalContext || {}};
